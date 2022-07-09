@@ -1,12 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
 from .views import views_blueprint
 from .auth import auth_blueprint
 
-# https://flask-migrate.readthedocs.io/en/latest/
-from flask_migrate import Migrate
 
 
 load_dotenv()
