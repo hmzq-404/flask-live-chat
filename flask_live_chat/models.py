@@ -1,6 +1,10 @@
 from sqlalchemy.sql import func
-from . import db
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
+
+db = SQLAlchemy()
+migrate = Migrate()
 
 
 # Each column has foreign keys that refer to other tables
