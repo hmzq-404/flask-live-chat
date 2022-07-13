@@ -1,9 +1,16 @@
 from flask import Flask
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
 
 
 load_dotenv()
+
+login_manager = LoginManager()
+db = SQLAlchemy()
+migrate = Migrate()
 
 
 def create_app():
@@ -19,8 +26,8 @@ def create_app():
     app.register_blueprint(views_blueprint)
     app.register_blueprint(auth_blueprint)
 
-    from .models import db, migrate
-    from .auth import login_manager
+    # from .models import db, migrate
+    # from .auth import login_manager
 
     db.init_app(app)
     migrate.init_app(app, db)
