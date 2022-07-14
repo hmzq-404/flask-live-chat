@@ -1,7 +1,7 @@
 from sqlalchemy.sql import func
+from flask_login import UserMixin
 from .field_constraints import user_constraints, message_constraints, room_constraints
 from . import db
-import json
 
 
 # Each column has foreign keys that refer to other tables
@@ -15,7 +15,7 @@ room_participants = db.Table("room_participants",
 relationship and backref -> placed on parent (one)
 foreign key -> placed on children (to many)
 """
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(user_constraints["username"]["max"]))
     password_hash = db.Column(db.String(user_constraints["password_hash"]["max"]))
