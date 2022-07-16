@@ -16,8 +16,8 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__)
     app.config.update(
-        SECRET_KEY=os.getenv("SECRET_KEY"), 
-        SQLALCHEMY_DATABASE_URI="sqlite:///database.db"
+        SECRET_KEY=os.getenv("SECRET_KEY"),
+        SQLALCHEMY_DATABASE_URI="sqlite:///database.db",
     )
 
     from .views import views_blueprint

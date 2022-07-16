@@ -28,7 +28,9 @@ def register():
 
         new_user = User()
         new_user.username = form.username.data
-        new_user.password_hash = generate_password_hash(form.password.data, "sha256", salt_length=32)
+        new_user.password_hash = generate_password_hash(
+            form.password.data, "sha256", salt_length=32
+        )
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user, remember=True)
@@ -48,7 +50,9 @@ def login():
     if form.validate_on_submit():
         existing_user = User.query.filter_by(username=form.username.data).first()
 
-        if existing_user and check_password_hash(existing_user.password_hash, form.password.data):
+        if existing_user and check_password_hash(
+            existing_user.password_hash, form.password.data
+        ):
             login_user(existing_user, remember=True)
             flash("Successfully logged in.")
             return redirect(url_for("views.home"))

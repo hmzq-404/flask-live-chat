@@ -5,5 +5,12 @@
 {% block content %}
 
 <h1>Logged in as {{ current_user.username }}</h1>
+<hr>
+
+{% for room in rooms %}
+    <h2>{{ room.name }}</h2>
+    <p>{{ room.description }}</p>
+    <hr>
+{% endfor %}
 
 {% endblock %}
