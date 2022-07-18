@@ -1,6 +1,5 @@
 from flask import render_template, Blueprint, flash, redirect, url_for, request
-from flask_login import login_required
-from sqlalchemy import desc
+from flask_login import login_required, current_user
 from .forms import CreateRoomForm
 from .models import Room
 from . import db
@@ -37,7 +36,9 @@ def create_room(name="", description=""):
             )
 
         new_room = Room()
-        form.populate_obj(new_room)
+        new_room.name = form.name.data
+        new_room.description = form.description.data
+        new_room.host = current_user
         db.session.add(new_room)
         db.session.commit()
         flash("Room successfully created.")

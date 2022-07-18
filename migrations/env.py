@@ -22,7 +22,7 @@ logger = logging.getLogger("alembic.env")
 # target_metadata = mymodel.Base.metadata
 
 # https://stackoverflow.com/questions/51783300/flask-migrate-no-changes-detected-to-schema-on-first-migration
-from flask_live_chat.models import room_participants, User, Message, Room
+from project.models import room_participants, User, Message, Room
 
 config.set_main_option(
     "sqlalchemy.url",

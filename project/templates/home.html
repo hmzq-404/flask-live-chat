@@ -8,6 +8,11 @@
 <hr>
 
 {% for room in rooms %}
+    {% if room.host == current_user %}
+        <a href="#">Edit</a>
+        <a href="#">Delete</a>
+    {% endif %}
+        
     <h2>{{ room.name }}</h2>
     <p>{{ room.description }}</p>
     <hr>
