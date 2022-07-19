@@ -47,7 +47,8 @@ def create_room(name="", description=""):
     return render_template("create_room.html", form=form)
 
 
-@views_blueprint.route("/delete-room")
+@views_blueprint.route("/delete-room/<int:id>")
 @login_required
-def delete_room():
-    pass
+def delete_room(id):
+    
+    return render_template("delete_room.html", id=request.args.get("id"))
