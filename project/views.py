@@ -37,7 +37,7 @@ def create_room():
 
         new_room = Room()
         new_room.name = form.name.data
-        new_room.description = form.description.data
+        new_room.description = form.description.data.strip()
         new_room.host = current_user
         db.session.add(new_room)
         db.session.commit()
@@ -48,39 +48,27 @@ def create_room():
 
 
 
-@views_blueprint.route("/edit-room")
+@views_blueprint.route("/edit-room", methods=["GET", "POST"])
 @login_required
 def edit_room():
     form = CreateRoomForm()
 
-    # if form.validate_on_submit():
-        # If a room with that name already exists
-        # if Room.query.filter_by(name=form.name.data).first():
-        #     flash("A room with this name already exists.")
-        #     return redirect(
-        #         url_for(
-        #             "views.create_room",
-        #             name=form.name.data,
-        #             description=form.description.data,
-        #         )
-        #     )
-
-        # new_room = Room()
-        # new_room.name = form.name.data
-        # new_room.description = form.description.data
-        # new_room.host = current_user
-        # db.session.add(new_room)
-        # db.session.commit()
-        # flash("Room successfully created.")
-        # return redirect(url_for("views.home"))
-
+    if form.validate_on_submit():
+        print("form is submitted and room is now being edited")
+        room = Room.query.filter_by(id=request.args.get("id")).first()
+        room.name = form.name.data
+        room.description = form.description.data.strip()
+        db.session.add(room)
+        db.session.commit()
+        flash("Room successfully edited.")
+        return redirect(url_for("views.home"))
 
     try:
         room = Room.query.filter_by(id=request.args.get("id")).first()
         # If current user owns this room
         if room.host == current_user:
-            # form.name = room.name
-            # form.description = room.description
+            form.name.data = room.name
+            form.description.data = room.description
             return render_template("create_room.html", form=form, method="edit")
         # If current owner doesn't own this room
         else:

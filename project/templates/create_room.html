@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<form method="POST" onkeydown="return event.key != 'Enter';">
+<form method="POST">
     {{ form.csrf_token }}
 
     <div>{{ form.name.label }}: {{ form.name() }}</div>
