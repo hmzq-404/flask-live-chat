@@ -11,7 +11,7 @@ views_blueprint = Blueprint("views", __name__)
 @views_blueprint.route("/")
 @login_required
 def home():
-    rooms = Room.query.all()
+    rooms = Room.query.order_by(Room.created.desc()).all()
     return render_template("home.html", rooms=rooms)
 
 
