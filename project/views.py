@@ -79,8 +79,17 @@ def edit_room():
 
 
 
-@views_blueprint.route("/delete-room/<int:id>")
+@views_blueprint.route("/delete-room")
 @login_required
-def delete_room(id):
-    # Will come back to this 
-    return render_template("delete_room.html", id=request.args.get("id"))
+def delete_room():
+    try:
+        room = Room.query.filter_by(id=request.args.get("id")).first()
+        # If current user owns this room
+        if room.host == current_user:
+            return render_template("delete_room.html", id=request.args.get("id"))
+        # If current owner doesn't own this room
+        else:
+            return redirect(url_for("views.home"))
+    # If room doesn't exist
+    except AttributeError:
+        return redirect(url_for("views.home"))

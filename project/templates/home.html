@@ -10,7 +10,7 @@
 {% for room in rooms %}
     {% if room.host == current_user %}
         <a href="{{ url_for('views.edit_room', id=room.id) }}">Edit</a>
-        <a href="#">Delete</a>
+        <a href="{{ url_for('views.delete_room', id=room.id) }}">Delete</a>
     {% endif %}
         
     <h2>{{ room.name }}</h2>
