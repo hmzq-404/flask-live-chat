@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, flash, redirect, url_for, request
 from flask_login import login_required, current_user
-from .forms import CreateRoomForm
+from .forms import CreateRoomForm, DeleteRoomForm
 from .models import Room
 from . import db
 
@@ -79,14 +79,16 @@ def edit_room():
 
 
 
-@views_blueprint.route("/delete-room")
+@views_blueprint.route("/delete-room", methods=["GET", "POST"])
 @login_required
 def delete_room():
+    form = DeleteRoomForm()
+
     try:
         room = Room.query.filter_by(id=request.args.get("id")).first()
         # If current user owns this room
         if room.host == current_user:
-            return render_template("delete_room.html", id=request.args.get("id"))
+            return render_template("delete_room.html", room=room, form=form)
         # If current owner doesn't own this room
         else:
             return redirect(url_for("views.home"))

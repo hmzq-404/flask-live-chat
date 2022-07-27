@@ -79,3 +79,8 @@ class CreateRoomForm(FlaskForm):
         ],
     )
     submit = SubmitField("Submit")
+
+
+
+class DeleteRoomForm(FlaskForm):
+    submit = SubmitField("Submit")
