@@ -83,4 +83,4 @@ class CreateRoomForm(FlaskForm):
 
 
 class DeleteRoomForm(FlaskForm):
-    submit = SubmitField("Submit")
+    submit = SubmitField("Delete")

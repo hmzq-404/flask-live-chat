@@ -54,7 +54,6 @@ def edit_room():
     form = CreateRoomForm()
 
     if form.validate_on_submit():
-        print("form is submitted and room is now being edited")
         room = Room.query.filter_by(id=request.args.get("id")).first()
         room.name = form.name.data
         room.description = form.description.data.strip()
@@ -83,6 +82,11 @@ def edit_room():
 @login_required
 def delete_room():
     form = DeleteRoomForm()
+
+    if form.validate_on_submit():
+        room = Room.query.filter_by(id=request.args.get("id")).first()
+        db.session.delete(room)
+        db.session.commit()
 
     try:
         room = Room.query.filter_by(id=request.args.get("id")).first()
