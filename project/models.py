@@ -22,8 +22,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(user_constraints["password_hash"]["max"]))
     messages = db.relationship("Message", backref="author")  # message.author
     rooms_owned = db.relationship("Room", backref="host")  # room.host
-    # rooms_owned will not be included in rooms_joined
-    # Host will not be included in participants
+    # Host will be included in participants
     rooms_joined = db.relationship(
         "Room", secondary=room_participants, backref="participants"
     )  # room.participants

@@ -4,6 +4,17 @@
 
 {% block content %}
 
-<h1>Hello World!</h1>
+<h2>{{ room.name }}</h2>
+<p>{{ room.description }}</p>
+
+<h3>Participants:</h3>
+{% for participant in room.participants %}
+{{ participant }}
+    {% if participant == room.host %}
+        <p>{{ participant.name }} (Host)</p>
+    {% else %}
+        <p>{{ participant.name }}</p>
+    {% endif %}
+{% endfor %}
 
 {% endblock %}

@@ -13,7 +13,7 @@
         <a href="{{ url_for('views.delete_room', id=room.id) }}">Delete</a>
     {% endif %}
         
-    <h2>{{ room.name }}</h2>
+    <a href="{{ url_for('views.room', id=room.id) }}"><h2>{{ room.name }}</h2></a>
     <h5>Room ID: {{ room.id }}</h5>
     <p>{{ room.description }}</p>
     <hr>

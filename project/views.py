@@ -15,6 +15,19 @@ def home():
     return render_template("home.html", rooms=rooms)
 
 
+@views_blueprint.route("/room", methods=["GET", "POST"])
+@login_required
+def room():
+    room = Room.query.filter_by(id=request.args.get("id")).first()
+    return render_template("room.html", room=room)
+
+
+@views_blueprint.route("/join-room")
+@login_required
+def join_room():
+    pass
+
+
 @views_blueprint.route("/create-room", methods=["GET", "POST"])
 @login_required
 def create_room():
@@ -39,6 +52,7 @@ def create_room():
         new_room.name = form.name.data
         new_room.description = form.description.data.strip()
         new_room.host = current_user
+        new_room.participants.append(current_user)
         db.session.add(new_room)
         db.session.commit()
         flash("Room successfully created.")
@@ -99,3 +113,8 @@ def delete_room():
     # If room doesn't exist
     except AttributeError:
         return redirect(url_for("views.home"))
+
+
+
+# client -> server
+# server -> broadcasts message to all clients within namespace
